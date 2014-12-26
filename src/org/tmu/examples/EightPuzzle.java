@@ -1,13 +1,13 @@
 package org.tmu.examples;
 
-import org.tmu.AStarState;
+import org.tmu.SearchState;
 
 import java.util.*;
 
 /**
  * Created by Saeed on 12/23/2014.
  */
-public class EightPuzzle extends AStarState implements Comparable<EightPuzzle> {
+public class EightPuzzle extends SearchState implements Comparable<EightPuzzle> {
     int[] arrangement = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8};
     int actions = 0;
     int displacement = 0;
@@ -101,8 +101,8 @@ public class EightPuzzle extends AStarState implements Comparable<EightPuzzle> {
     }
 
     @Override
-    public Collection<AStarState> getAllNeighbors() {
-        List<AStarState> neighbors = new ArrayList<AStarState>();
+    public Collection<SearchState> getAllNeighbors() {
+        List<SearchState> neighbors = new ArrayList<SearchState>();
         for (int i = 0; i < arrangement.length; i++) {
             EightPuzzle state = clone();
             int index = (i + 1) % arrangement.length;

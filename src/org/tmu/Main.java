@@ -11,18 +11,18 @@ public class Main {
     public static void main(String[] args) {
         // write your code here
 
-        HashSet<AStarState> open_set = new HashSet<AStarState>();
-        HashSet<AStarState> close_set = new HashSet<AStarState>();
-        PriorityQueue<AStarState> Q = new PriorityQueue<AStarState>();
+        HashSet<SearchState> open_set = new HashSet<SearchState>();
+        HashSet<SearchState> close_set = new HashSet<SearchState>();
+        PriorityQueue<SearchState> Q = new PriorityQueue<SearchState>();
         Q.add(EightPuzzle.makeRandom(1));
         while (!Q.isEmpty()) {
-            AStarState best = Q.poll();
+            SearchState best = Q.poll();
             if (best.getH() == 0.0)
                 break;
             System.out.println(best);
             close_set.add(best);
-            Collection<AStarState> neighbors = best.getAllNeighbors();
-            for (AStarState neighbor : neighbors)
+            Collection<SearchState> neighbors = best.getAllNeighbors();
+            for (SearchState neighbor : neighbors)
                 if (close_set.contains(neighbor) || open_set.contains(neighbor))
                     continue;
                 else {

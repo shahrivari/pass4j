@@ -1,25 +1,12 @@
 package org.tmu;
 
-import java.util.Collection;
-
 /**
- * Created by Saeed on 12/23/2014.
+ * Created by Saeed on 12/27/14.
  */
-public abstract class AStarState {
+public abstract class AStarState implements SearchState {
+    public abstract double distanceToGoal();
 
-    AStarState parent = null;
-
-    public AStarState getParent() {
-        return parent;
+    public double fitness() {
+        return distanceFromRoot() + distanceToGoal();
     }
-
-    public abstract double getG();//current cost
-
-    public abstract double getH();//heuristical cost to goal
-
-    public double getF() {
-        return getG() + getH();
-    } //the fitness function
-
-    public abstract Collection<AStarState> getAllNeighbors();
 }
