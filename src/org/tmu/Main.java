@@ -1,8 +1,8 @@
 package org.tmu;
 
-import org.tmu.examples.EightPuzzle;
+import org.tmu.examples.TilePuzzle;
 
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 
@@ -11,29 +11,34 @@ public class Main {
     public static void main(String[] args) {
         // write your code here
 
-        EightPuzzle rs = EightPuzzle.makeRandom(0);
-        rs = rs.moveLeft();
-        rs = rs.moveLeft();
+        HashSet<TilePuzzle> open_set = new HashSet<TilePuzzle>();
+        HashSet<TilePuzzle> close_set = new HashSet<TilePuzzle>();
+        PriorityQueue<TilePuzzle> Q = new PriorityQueue<TilePuzzle>();
+        TilePuzzle init = TilePuzzle.makeRandom(10, System.nanoTime());
 
-
-        HashSet<AStarState> open_set = new HashSet<AStarState>();
-        HashSet<AStarState> close_set = new HashSet<AStarState>();
-        PriorityQueue<AStarState> Q = new PriorityQueue<AStarState>();
-        Q.add(EightPuzzle.makeRandom(1));
+        Q.add(init);
         while (!Q.isEmpty()) {
-            AStarState best = Q.poll();
-            if (best.distanceToGoal() == 0.0)
-                break;
+            TilePuzzle best = Q.poll();
+            double best_f = best.fitness();
             System.out.println(best);
+            if (best.distanceToGoal() == 0.0) {
+                System.out.println(Arrays.toString(best.getActions().toArray()));
+                break;
+            }
             close_set.add(best);
-            Collection<SearchState> neighbors = best.getNeighbors();
-            for (SearchState neighbor : neighbors)
-                if (close_set.contains(neighbor) || open_set.contains(neighbor))
+
+            for (TilePuzzle.Action act : TilePuzzle.Action.values()) {
+                TilePuzzle new_state = best.clone().move(act);
+                ;
+                if (new_state == null)
+                    continue;
+                if (close_set.contains(new_state) || open_set.contains(new_state))
                     continue;
                 else {
-                    Q.add((AStarState) neighbor);
-                    open_set.add((AStarState) neighbor);
+                    Q.add(new_state);
+                    open_set.add(new_state);
                 }
+            }
         }
 
     }
