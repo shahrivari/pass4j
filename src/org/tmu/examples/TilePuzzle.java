@@ -23,6 +23,16 @@ public class TilePuzzle implements Comparable<TilePuzzle> {
             arrangement[i] = i;
     }
 
+    public static TilePuzzle makeFromString(String s) {
+        String[] tokens = s.split(",");
+        TilePuzzle result = new TilePuzzle((int) Math.sqrt(tokens.length));
+        for (int i = 0; i < tokens.length; i++)
+            result.arrangement[i] = Integer.parseInt(tokens[i]);
+        result.actions.clear();
+        result.setDisplacement();
+        return result;
+    }
+
     public static TilePuzzle makeRandom(int dimension, long seed) {
         TilePuzzle result = new TilePuzzle(dimension);
         Random rnd = new Random(seed);
