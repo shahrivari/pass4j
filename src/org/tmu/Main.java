@@ -10,14 +10,30 @@ public class Main {
 
     public static void main(String[] args) {
         // write your code here
-
+        double max_f = 33;
+        String url = "ftp://ftp.cs.princeton.edu/pub/cs226/8puzzle";
         HashSet<TilePuzzle> open_set = new HashSet<TilePuzzle>();
         HashSet<TilePuzzle> close_set = new HashSet<TilePuzzle>();
         PriorityQueue<TilePuzzle> Q = new PriorityQueue<TilePuzzle>();
+        TilePuzzle.goal = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 0};
         //TilePuzzle init = TilePuzzle.makeRandom(10, System.nanoTime());
         //TilePuzzle init=TilePuzzle.makeFromString("6,0,5,8,7,4,3,2,1");
+//        TilePuzzle init=TilePuzzle.makeFromString("5  8  7 \n" +
+//                " 1  4  6 \n" +
+//                " 3  0  2");
+        TilePuzzle init = TilePuzzle.makeFromString("0  1  3\n" +
+                "        4  2  5\n" +
+                "        7  8  6\n");
+
         //TilePuzzle init=TilePuzzle.makeFromString("13,1,0,4,8,12,6,3,15,9,5,14,0,7,2,11");
-        TilePuzzle init = TilePuzzle.makeFromString("11,0,4,7,2,15,1,8,5,14,9,3,13,6,12,10");
+        //TilePuzzle init = TilePuzzle.makeFromString("11,0,4,7,2,15,1,8,5,14,9,3,13,6,12,10");
+//        TilePuzzle init=TilePuzzle.makeFromString("3  1  6  4 \n" +
+//                " 5  0  9  7 \n" +
+//                "10  2 11  8 \n" +
+//                "13 15 14 12");
+
+        DfsSolver.solve(init, 5);
+        System.exit(0);
 
         Q.add(init);
         while (!Q.isEmpty()) {
@@ -36,6 +52,8 @@ public class Main {
             for (TilePuzzle.Action act : TilePuzzle.Action.values()) {
                 TilePuzzle new_state = best.clone().move(act);
                 if (new_state == null)
+                    continue;
+                if (new_state.fitness() > max_f)
                     continue;
                 if (close_set.contains(new_state) || open_set.contains(new_state))
                     continue;

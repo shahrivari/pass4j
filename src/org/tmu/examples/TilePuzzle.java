@@ -11,7 +11,8 @@ import java.util.Random;
  * Created by Saeed on 12/23/2014.
  */
 public class TilePuzzle implements Comparable<TilePuzzle> {
-    int dimension = 3;
+    public static int[] goal;
+    int dimension = -1;
     int[] arrangement;
     List<Action> actions = new ArrayList<Action>();
     int displacements = 0;
@@ -24,7 +25,8 @@ public class TilePuzzle implements Comparable<TilePuzzle> {
     }
 
     public static TilePuzzle makeFromString(String s) {
-        String[] tokens = s.split(",");
+        s = s.replaceAll("[,\\s]+", " ");
+        String[] tokens = s.split("\\s");
         TilePuzzle result = new TilePuzzle((int) Math.sqrt(tokens.length));
         for (int i = 0; i < tokens.length; i++)
             result.arrangement[i] = Integer.parseInt(tokens[i]);
@@ -108,7 +110,7 @@ public class TilePuzzle implements Comparable<TilePuzzle> {
     private int setDisplacement() {
         displacements = 0;
         for (int i = 0; i < arrangement.length; i++)
-            if (arrangement[i] != i)
+            if (arrangement[i] != goal[i])
                 displacements++;
         return displacements;
     }
