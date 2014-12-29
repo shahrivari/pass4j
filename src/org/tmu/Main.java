@@ -21,9 +21,9 @@ public class Main {
 //        TilePuzzle init=TilePuzzle.makeFromString("5  8  7 \n" +
 //                " 1  4  6 \n" +
 //                " 3  0  2");
-        TilePuzzle init = TilePuzzle.makeFromString("0  1  3\n" +
-                "        4  2  5\n" +
-                "        7  8  6\n");
+        TilePuzzle init = TilePuzzle.makeFromString("5  8  7 \n" +
+                " 1  4  6 \n" +
+                " 3  0  2");
 
         //TilePuzzle init=TilePuzzle.makeFromString("13,1,0,4,8,12,6,3,15,9,5,14,0,7,2,11");
         //TilePuzzle init = TilePuzzle.makeFromString("11,0,4,7,2,15,1,8,5,14,9,3,13,6,12,10");
@@ -32,7 +32,7 @@ public class Main {
 //                "10  2 11  8 \n" +
 //                "13 15 14 12");
 
-        DfsSolver.solve(init, 5);
+        DfsSolver.rolve(init, 30);
         System.exit(0);
 
         Q.add(init);
