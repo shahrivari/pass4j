@@ -32,7 +32,7 @@ public class Main {
 //                "10  2 11  8 \n" +
 //                "13 15 14 12");
 
-        BfsSolver.solve(init, 30);
+        DfsSolver.solve(init, 29);
         System.exit(0);
 
         Q.add(init);

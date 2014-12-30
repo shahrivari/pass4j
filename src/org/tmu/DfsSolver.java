@@ -37,23 +37,22 @@ public class DfsSolver {
 
     public static TilePuzzle solve(TilePuzzle init_state, final double max_f) {
         Stack<TilePuzzle> S = new Stack<TilePuzzle>();
-        HashSet<String> visited = new HashSet<String>();
+        HashSet<String> V = new HashSet<String>();
         S.add(init_state);
         while (!S.isEmpty()) {
             TilePuzzle top = S.pop();
 
             if (top.distanceToGoal() == 0) {
-                System.out.println("#Visited: " + visited.size());
+                System.out.println("#Visited: " + V.size());
                 System.out.println("#Moves: " + top.getActions().size());
                 System.out.println(Arrays.toString(top.getActions().toArray()));
                 return top;
             }
-
             if (top.getActions().size() > max_f)
                 continue;
 
-            if (!visited.contains(top.toString())) {
-                visited.add(top.toString());
+            if (!V.contains(top.toString())) {
+                V.add(top.toString());
                 for (TilePuzzle.Action act : TilePuzzle.Action.values()) {
                     TilePuzzle new_state = top.clone().move(act);
                     if (new_state == null)
@@ -64,7 +63,7 @@ public class DfsSolver {
         }
         try {
             FileWriter writer = new FileWriter("x:\\alaki.txt");
-            String[] arr = visited.toArray(new String[0]);
+            String[] arr = V.toArray(new String[0]);
             Arrays.sort(arr);
             for (String s : arr)
                 writer.write(s + "\n");
